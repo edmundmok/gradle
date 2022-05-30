@@ -15,7 +15,6 @@
  */
 package org.gradle.api.internal.tasks.compile;
 
-import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import org.gradle.api.logging.Logger;
@@ -28,6 +27,7 @@ import org.gradle.util.internal.CollectionUtils;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.gradle.internal.FileUtils.hasExtension;
 
@@ -88,7 +88,7 @@ public class NormalizingJavaCompiler implements Compiler<JavaCompileSpec> {
         }
 
         List<String> compilerArgs = new JavaCompilerArgumentsBuilder(spec).includeLauncherOptions(true).includeSourceFiles(true).build();
-        String joinedArgs = Joiner.on(' ').join(compilerArgs);
+        String joinedArgs = compilerArgs.stream().map(it -> "".equals(it) ? "\"\"" : it).collect(Collectors.joining(" "));
         LOGGER.debug("Compiler arguments: {}", joinedArgs);
     }
 
