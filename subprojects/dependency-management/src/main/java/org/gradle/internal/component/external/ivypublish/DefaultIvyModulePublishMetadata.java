@@ -138,7 +138,7 @@ public class DefaultIvyModulePublishMetadata implements IvyModulePublishMetadata
     }
 
     public void addArtifact(String configuration, PublishArtifact artifact) {
-        IvyArtifactName ivyName = IvyArtifactName.forPublishArtifact(artifact);
+        IvyArtifactName ivyName = IvyArtifactName.lazyArtifactName(artifact);
         DefaultIvyModuleArtifactPublishMetadata ivyArtifact = getOrCreate(ivyName);
         ivyArtifact.setFile(artifact.getFile());
         ivyArtifact.addConfiguration(configuration);

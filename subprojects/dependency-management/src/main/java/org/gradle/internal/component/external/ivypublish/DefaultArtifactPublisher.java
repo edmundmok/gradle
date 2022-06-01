@@ -113,7 +113,7 @@ public class DefaultArtifactPublisher implements ArtifactPublisher {
         if (artifactFile.exists()) {
             return true;
         }
-        IvyArtifactName ivyArtifactName = IvyArtifactName.forPublishArtifact(artifact);
+        IvyArtifactName ivyArtifactName = IvyArtifactName.lazyArtifactName(artifact);
         if (!isSigningArtifact(ivyArtifactName)) {
             throw new PublishException(String.format("Cannot publish artifact '%s' (%s) as it does not exist.", ivyArtifactName, artifactFile));
         }
